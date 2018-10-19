@@ -4,7 +4,7 @@ proc init {cellpath otherInfo} {
 
   bd::mark_propagate_override $ip " \
     XCVR_TYPE \
-    FPGA_SERIES \
+    FPGA_TECHNOLOGY \
     FPGA_FAMILY \
     SPEED_GRADE \
     DEV_PACKAGE"

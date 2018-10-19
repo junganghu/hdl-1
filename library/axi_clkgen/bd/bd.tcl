@@ -5,7 +5,7 @@ proc init {cellpath otherInfo} {
   bd::mark_propagate_override $ip \
     "CLKIN_PERIOD \
      CLKIN2_PERIOD \
-     FPGA_SERIES \
+     FPGA_TECHNOLOGY \
      FPGA_FAMILY \
      SPEED_GRADE \
      DEV_PACKAGE"

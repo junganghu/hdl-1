@@ -19,7 +19,7 @@ proc adi_device_spec {cellpath param} {
   set part [get_property PART [current_project]]
 
   switch -regexp -- $param {
-      FPGA_SERIES {
+      FPGA_TECHNOLOGY {
           switch  -regexp -- $part {
              ^xc7    {set series_name 7series}
              ^xczu   {set series_name ultrascale+}
@@ -30,7 +30,7 @@ proc adi_device_spec {cellpath param} {
                  exit -1
              }
           }
-          set_property CONFIG.FPGA_SERIES "$series_name" $ip
+          set_property CONFIG.FPGA_TECHNOLOGY "$series_name" $ip
       }
       FPGA_FAMILY {
           set fpga_family [get_property FAMILY $part]

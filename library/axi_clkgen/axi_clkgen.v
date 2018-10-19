@@ -39,7 +39,7 @@
 module axi_clkgen #(
 
   parameter         ID = 0,
-  parameter         FPGA_SERIES = 0,
+  parameter         FPGA_TECHNOLOGY = 0,
   parameter         FPGA_FAMILY = 0,
   parameter         SPEED_GRADE = 0,
   parameter         DEV_PACKAGE = 0,
@@ -151,7 +151,7 @@ module axi_clkgen #(
 
   up_clkgen #(
     .ID(ID),
-    .FPGA_SERIES(FPGA_SERIES),
+    .FPGA_TECHNOLOGY(FPGA_TECHNOLOGY),
     .FPGA_FAMILY(FPGA_FAMILY),
     .SPEED_GRADE(SPEED_GRADE),
     .DEV_PACKAGE(DEV_PACKAGE)
@@ -189,7 +189,7 @@ module axi_clkgen #(
   // mmcm instantiations
 
   ad_mmcm_drp #(
-    .MMCM_DEVICE_SERIES (FPGA_SERIES),
+    .MMCM_DEVICE_SERIES (FPGA_TECHNOLOGY),
     .MMCM_CLKIN_PERIOD (CLKIN_PERIOD),
     .MMCM_CLKIN2_PERIOD (CLKIN2_PERIOD),
     .MMCM_VCO_DIV (VCO_DIV),

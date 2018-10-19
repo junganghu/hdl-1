@@ -15,7 +15,7 @@ set auto_set_param_list {
           DEV_PACKAGE \
           SPEED_GRADE \
           FPGA_FAMILY \
-          FPGA_SERIES}
+          FPGA_TECHNOLOGY}
 
 
 # List for automatically assigned parameter values and encoded values
