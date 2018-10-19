@@ -56,12 +56,12 @@ proc adi_device_spec {cellpath param} {
           foreach x [list_property $part] {
               regexp ^GT..._TRANSCEIVERS $x dev_transcivers
           }
-	  foreach i $xcvr_type_list {
+          foreach i $xcvr_type_list {
               regexp ^[lindex $i 0] $dev_transcivers matched
           }
-	  if { $matched eq "" } {
+          if { $matched eq "" } {
                puts "CRITICAL WARNING: \"$dev_transcivers\" TYPE IS NOT SUPPORTED BY ADI!"
-	     }
+          }
           set_property CONFIG.XCVR_TYPE "$matched" $ip
       }
       default {

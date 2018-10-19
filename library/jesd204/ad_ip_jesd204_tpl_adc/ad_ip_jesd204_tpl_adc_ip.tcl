@@ -50,6 +50,8 @@ adi_ip_files ad_ip_jesd204_tpl_adc [list \
 
 adi_ip_properties ad_ip_jesd204_tpl_adc
 
+# work in progress (fix) ######################################################
+
 set_property hide_in_gui {1} [ipx::current_core]
 
 ipx::save_core [ipx::current_core]

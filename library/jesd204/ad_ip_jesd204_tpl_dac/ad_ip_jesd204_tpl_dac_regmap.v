@@ -25,6 +25,10 @@
 
 module ad_ip_jesd204_tpl_dac_regmap #(
   parameter ID = 0,
+  parameter FPGA_SERIES = 0,
+  parameter FPGA_FAMILY = 0,
+  parameter SPEED_GRADE = 0,
+  parameter DEV_PACKAGE = 0,
   parameter NUM_CHANNELS = 2,
   parameter DATA_PATH_WIDTH = 16
 ) (
@@ -163,6 +167,10 @@ module ad_ip_jesd204_tpl_dac_regmap #(
 
   up_dac_common #(
     .ID (ID),
+    .FPGA_SERIES (FPGA_SERIES),
+    .FPGA_FAMILY (FPGA_FAMILY),
+    .SPEED_GRADE (SPEED_GRADE),
+    .DEV_PACKAGE (DEV_PACKAGE),
     .DRP_DISABLE (1),
     .USERPORTS_DISABLE (1),
     .GPIO_DISABLE (1)

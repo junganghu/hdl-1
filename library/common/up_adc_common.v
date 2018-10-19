@@ -39,13 +39,17 @@ module up_adc_common #(
 
   // parameters
 
-  parameter   ID = 0,
-  parameter   CONFIG = 0,
-  parameter   COMMON_ID = 6'h00,
-  parameter   DRP_DISABLE = 0,
-  parameter   USERPORTS_DISABLE = 0,
-  parameter   GPIO_DISABLE = 0,
-  parameter   START_CODE_DISABLE = 0) (
+  parameter         ID = 0,
+  parameter [ 7:0]  FPGA_SERIES = 0,
+  parameter [ 7:0]  FPGA_FAMILY = 0,
+  parameter [ 7:0]  SPEED_GRADE = 0,
+  parameter [ 7:0]  DEV_PACKAGE = 0,
+  parameter         CONFIG = 0,
+  parameter         COMMON_ID = 6'h00,
+  parameter         DRP_DISABLE = 0,
+  parameter         USERPORTS_DISABLE = 0,
+  parameter         GPIO_DISABLE = 0,
+  parameter         START_CODE_DISABLE = 0) (
 
   // clock reset
 
@@ -373,6 +377,7 @@ module up_adc_common #(
           8'h02: up_rdata_int <= up_scratch;
           8'h03: up_rdata_int <= CONFIG;
           8'h04: up_rdata_int <= {31'b0, up_pps_irq_mask};
+          8'h07: up_rdata <= {FPGA_SERIES,FPGA_FAMILY,SPEED_GRADE,DEV_PACKAGE}; // [8,8,8,8]
           8'h10: up_rdata_int <= {29'd0, up_adc_clk_enb, up_mmcm_resetn, up_resetn};
           8'h11: up_rdata_int <= {27'd0, up_adc_sref_sync, up_adc_sync, up_adc_r1_mode,
                                   up_adc_ddr_edgesel, up_adc_pin_mode};
