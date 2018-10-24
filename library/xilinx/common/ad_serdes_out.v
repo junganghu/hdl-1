@@ -38,7 +38,7 @@
 
 module ad_serdes_out #(
 
-  parameter   FPGA_SERIES = 0,
+  parameter   FPGA_TECHNOLOGY = 0,
   parameter   DDR_OR_SDR_N = 1,
   parameter   SERDES_FACTOR = 8,
   parameter   DATA_WIDTH = 16) (
@@ -83,7 +83,7 @@ module ad_serdes_out #(
   generate
   for (l_inst = 0; l_inst <= (DATA_WIDTH-1); l_inst = l_inst + 1) begin: g_data
 
-    if (FPGA_SERIES == SEVEN_SERIES) begin
+    if (FPGA_TECHNOLOGY == SEVEN_SERIES) begin
       OSERDESE2  #(
         .DATA_RATE_OQ (DR_OQ_DDR),
         .DATA_RATE_TQ ("SDR"),

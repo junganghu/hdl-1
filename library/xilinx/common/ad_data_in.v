@@ -40,7 +40,7 @@ module ad_data_in #(
   // parameters
 
   parameter   SINGLE_ENDED = 0,
-  parameter   FPGA_SERIES = 0,
+  parameter   FPGA_TECHNOLOGY = 0,
   parameter   IODELAY_ENABLE = 1,
   parameter   IODELAY_CTRL = 0,
   parameter   IODELAY_GROUP = "dev_if_delay_group") (
@@ -74,12 +74,12 @@ module ad_data_in #(
   localparam  ULTRASCALE_PLUS = 2;
 
   localparam  IODELAY_CTRL_ENABLED = (IODELAY_ENABLE == 1) ? IODELAY_CTRL : 0;
-  localparam  IODELAY_CTRL_SIM_DEVICE = (FPGA_SERIES == ULTRASCALE_PLUS) ? "ULTRASCALE" :
-    (FPGA_SERIES == ULTRASCALE) ? "ULTRASCALE" : "7SERIES";
+  localparam  IODELAY_CTRL_SIM_DEVICE = (FPGA_TECHNOLOGY == ULTRASCALE_PLUS) ? "ULTRASCALE" :
+    (FPGA_TECHNOLOGY == ULTRASCALE) ? "ULTRASCALE" : "7SERIES";
 
-  localparam  IODELAY_FPGA_SERIES = (IODELAY_ENABLE == 1) ? FPGA_SERIES : NONE;
-  localparam  IODELAY_SIM_DEVICE = (FPGA_SERIES == ULTRASCALE_PLUS) ? "ULTRASCALE_PLUS" :
-    (FPGA_SERIES == ULTRASCALE) ? "ULTRASCALE" : "7SERIES";
+  localparam  IODELAY_FPGA_TECHNOLOGY = (IODELAY_ENABLE == 1) ? FPGA_TECHNOLOGY : NONE;
+  localparam  IODELAY_SIM_DEVICE = (FPGA_TECHNOLOGY == ULTRASCALE_PLUS) ? "ULTRASCALE_PLUS" :
+    (FPGA_TECHNOLOGY == ULTRASCALE) ? "ULTRASCALE" : "7SERIES";
 
   // internal signals
 
@@ -119,7 +119,7 @@ module ad_data_in #(
   // idelay
 
   generate
-  if (IODELAY_FPGA_SERIES == SEVEN_SERIES) begin
+  if (IODELAY_FPGA_TECHNOLOGY == SEVEN_SERIES) begin
   (* IODELAY_GROUP = IODELAY_GROUP *)
   IDELAYE2 #(
     .CINVCTRL_SEL ("FALSE"),
@@ -147,7 +147,7 @@ module ad_data_in #(
   endgenerate
 
   generate
-  if ((IODELAY_FPGA_SERIES == ULTRASCALE) || (IODELAY_FPGA_SERIES == ULTRASCALE_PLUS)) begin
+  if ((IODELAY_FPGA_TECHNOLOGY == ULTRASCALE) || (IODELAY_FPGA_TECHNOLOGY == ULTRASCALE_PLUS)) begin
   assign up_drdata = up_drdata_s[8:4];
   (* IODELAY_GROUP = IODELAY_GROUP *)
   IDELAYE3 #(
@@ -175,7 +175,7 @@ module ad_data_in #(
   endgenerate
 
   generate
-  if (IODELAY_FPGA_SERIES == NONE) begin
+  if (IODELAY_FPGA_TECHNOLOGY == NONE) begin
   assign rx_data_idelay_s = rx_data_ibuf_s;
 	assign up_drdata = 5'd0;
   end
@@ -184,7 +184,7 @@ module ad_data_in #(
   // iddr
 
   generate
-  if ((FPGA_SERIES == ULTRASCALE) || (FPGA_SERIES == ULTRASCALE_PLUS)) begin
+  if ((FPGA_TECHNOLOGY == ULTRASCALE) || (FPGA_TECHNOLOGY == ULTRASCALE_PLUS)) begin
   IDDRE1 #(.DDR_CLK_EDGE ("SAME_EDGE")) i_rx_data_iddr (
     .R (1'b0),
     .C (rx_clk),
@@ -196,7 +196,7 @@ module ad_data_in #(
   endgenerate
 
   generate
-  if (FPGA_SERIES == SEVEN_SERIES) begin
+  if (FPGA_TECHNOLOGY == SEVEN_SERIES) begin
   IDDR #(.DDR_CLK_EDGE ("SAME_EDGE")) i_rx_data_iddr (
     .CE (1'b1),
     .R (1'b0),

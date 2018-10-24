@@ -37,7 +37,7 @@
 
 module ad_serdes_in #(
 
-  parameter   FPGA_SERIES = 0,
+  parameter   FPGA_TECHNOLOGY = 0,
   parameter   DDR_OR_SDR_N = 0,
   parameter   SERDES_FACTOR = 8,
   parameter   DATA_WIDTH = 16,
@@ -108,7 +108,7 @@ module ad_serdes_in #(
   // received data interface: ibuf -> idelay -> iserdes
 
   genvar l_inst;
-  generate if (FPGA_SERIES == SEVEN_SERIES) begin
+  generate if (FPGA_TECHNOLOGY == SEVEN_SERIES) begin
     for (l_inst = 0; l_inst <= (DATA_WIDTH-1); l_inst = l_inst + 1) begin: g_data
 
       IBUFDS i_ibuf (
