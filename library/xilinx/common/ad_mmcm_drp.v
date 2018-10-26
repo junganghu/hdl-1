@@ -38,7 +38,7 @@
 
 module ad_mmcm_drp #(
 
-  parameter   MMCM_DEVICE_SERIES = 0,
+  parameter   FPGA_TECHNOLOGY = 0,
   parameter   MMCM_CLKIN_PERIOD  = 1.667,
   parameter   MMCM_CLKIN2_PERIOD  = 1.667,
   parameter   MMCM_VCO_DIV  = 6,
@@ -111,7 +111,7 @@ module ad_mmcm_drp #(
   // instantiations
 
   generate
-  if (MMCM_DEVICE_SERIES == MMCM_DEVICE_7SERIES) begin
+  if (FPGA_TECHNOLOGY == MMCM_DEVICE_7SERIES) begin
     MMCME2_ADV #(
       .BANDWIDTH ("OPTIMIZED"),
       .CLKOUT4_CASCADE ("FALSE"),
@@ -176,7 +176,7 @@ module ad_mmcm_drp #(
       BUFG i_clk_1_bufg   (.I (mmcm_clk_1_s),   .O (mmcm_clk_1));
       BUFG i_clk_2_bufg   (.I (mmcm_clk_2_s),   .O (mmcm_clk_2));
 
-  end else if (MMCM_DEVICE_SERIES == MMCM_DEVICE_ULTRASCALE) begin
+  end else if (FPGA_TECHNOLOGY == MMCM_DEVICE_ULTRASCALE) begin
     MMCME3_ADV #(
       .BANDWIDTH ("OPTIMIZED"),
       .CLKOUT4_CASCADE ("FALSE"),
@@ -244,7 +244,7 @@ module ad_mmcm_drp #(
       BUFG i_clk_1_bufg   (.I (mmcm_clk_1_s),   .O (mmcm_clk_1));
       BUFG i_clk_2_bufg   (.I (mmcm_clk_2_s),   .O (mmcm_clk_2));
 
-  end else if (MMCM_DEVICE_SERIES == MMCM_DEVICE_ULTRASCALE_PLUS) begin
+  end else if (FPGA_TECHNOLOGY == MMCM_DEVICE_ULTRASCALE_PLUS) begin
     MMCME4_ADV #(
       .BANDWIDTH ("OPTIMIZED"),
       .CLKOUT4_CASCADE ("FALSE"),
@@ -268,8 +268,8 @@ module ad_mmcm_drp #(
       .CLKOUT2_DUTY_CYCLE (0.500),
       .CLKOUT2_USE_FINE_PS ("FALSE"),
       .CLKIN1_PERIOD (MMCM_CLKIN_PERIOD),
-      .CLKIN2_PERIOD (MMCM_CLKIN2_PERIOD),
-    i_mmcme4 (
+      .CLKIN2_PERIOD (MMCM_CLKIN2_PERIOD)
+    ) i_mmcme4 (
       .CLKIN1 (clk),
       .CLKFBIN (bufg_fb_clk_s),
       .CLKFBOUT (mmcm_fb_clk_s),
