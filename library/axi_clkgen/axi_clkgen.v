@@ -189,7 +189,7 @@ module axi_clkgen #(
   // mmcm instantiations
 
   ad_mmcm_drp #(
-    .MMCM_DEVICE_SERIES (FPGA_TECHNOLOGY),
+    .FPGA_TECHNOLOGY (FPGA_TECHNOLOGY),
     .MMCM_CLKIN_PERIOD (CLKIN_PERIOD),
     .MMCM_CLKIN2_PERIOD (CLKIN2_PERIOD),
     .MMCM_VCO_DIV (VCO_DIV),
