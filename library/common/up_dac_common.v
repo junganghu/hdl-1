@@ -40,7 +40,7 @@ module up_dac_common #(
   // parameters
 
   parameter         ID = 0,
-  parameter [ 7:0]  FPGA_SERIES = 0,
+  parameter [ 7:0]  FPGA_TECHNOLOGY = 0,
   parameter [ 7:0]  FPGA_FAMILY = 0,
   parameter [ 7:0]  SPEED_GRADE = 0,
   parameter [ 7:0]  DEV_PACKAGE = 0,
@@ -380,7 +380,7 @@ module up_dac_common #(
           8'h01: up_rdata_int <= ID;
           8'h02: up_rdata_int <= up_scratch;
           8'h03: up_rdata_int <= CONFIG;
-          8'h07: up_rdata <= {FPGA_SERIES,FPGA_FAMILY,SPEED_GRADE,DEV_PACKAGE}; // [8,8,8,8]
+          8'h07: up_rdata_int <= {FPGA_TECHNOLOGY,FPGA_FAMILY,SPEED_GRADE,DEV_PACKAGE}; // [8,8,8,8]
           8'h10: up_rdata_int <= {29'd0, up_dac_clk_enb, up_mmcm_resetn, up_resetn};
           8'h11: up_rdata_int <= {31'd0, up_dac_sync};
           8'h12: up_rdata_int <= {24'd0, up_dac_par_type, up_dac_par_enb, up_dac_r1_mode,
