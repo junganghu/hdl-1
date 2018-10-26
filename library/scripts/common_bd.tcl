@@ -13,7 +13,7 @@ proc adi_device_spec {cellpath param} {
       source ${ip_path}${parent_dir}/scripts/adi_device_info_enc.tcl
       break
     }
-    append parent_dir $parent_dir
+    append parent_dir "../"
   }
 
   set part [get_property PART [current_project]]
@@ -84,7 +84,7 @@ proc adi_auto_assign_device_spec {cellpath} {
       source ${ip_path}${parent_dir}/scripts/adi_device_info_enc.tcl
       break
     }
-    append parent_dir $parent_dir
+    append parent_dir "../"
   }
 
   # Find predefindes auto assignable parameters
