@@ -20,7 +20,7 @@ set auto_set_param_list {
 
 # List for automatically assigned parameter values and encoded values
 # The list name must be the parameter name (lowercase), appending "_list" to it
-set fpga_series_list { \
+set fpga_technology_list { \
         { 7series     0 } \
         { ultrascale  1 } \
         { ultrascale+ 2 }}
