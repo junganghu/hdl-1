@@ -6,7 +6,7 @@ source $ad_hdl_dir/library/scripts/adi_ip.tcl
 adi_ip_create axi_ad6676
 adi_ip_files axi_ad6676 [list \
   "axi_ad6676.v" \
-  "bd/bd.tcl"]
+  "bd/bd.tcl" ]
 
 adi_ip_properties axi_ad6676
 
