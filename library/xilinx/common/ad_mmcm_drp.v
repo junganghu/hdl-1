@@ -72,9 +72,9 @@ module ad_mmcm_drp #(
   output  reg             up_drp_ready,
   output  reg             up_drp_locked);
 
-  localparam  MMCM_DEVICE_7SERIES = 0;
-  localparam  MMCM_DEVICE_ULTRASCALE = 1;
-  localparam  MMCM_DEVICE_ULTRASCALE_PLUS = 2;
+  localparam  SEVEN_SERIES = 0;
+  localparam  ULTRASCALE = 1;
+  localparam  ULTRASCALE_PLUS = 2;
 
 
   // internal registers
@@ -111,7 +111,7 @@ module ad_mmcm_drp #(
   // instantiations
 
   generate
-  if (FPGA_TECHNOLOGY == MMCM_DEVICE_7SERIES) begin
+  if (FPGA_TECHNOLOGY == SEVEN_SERIES) begin
     MMCME2_ADV #(
       .BANDWIDTH ("OPTIMIZED"),
       .CLKOUT4_CASCADE ("FALSE"),
@@ -176,7 +176,7 @@ module ad_mmcm_drp #(
       BUFG i_clk_1_bufg   (.I (mmcm_clk_1_s),   .O (mmcm_clk_1));
       BUFG i_clk_2_bufg   (.I (mmcm_clk_2_s),   .O (mmcm_clk_2));
 
-  end else if (FPGA_TECHNOLOGY == MMCM_DEVICE_ULTRASCALE) begin
+  end else if (FPGA_TECHNOLOGY == ULTRASCALE) begin
     MMCME3_ADV #(
       .BANDWIDTH ("OPTIMIZED"),
       .CLKOUT4_CASCADE ("FALSE"),
@@ -244,7 +244,7 @@ module ad_mmcm_drp #(
       BUFG i_clk_1_bufg   (.I (mmcm_clk_1_s),   .O (mmcm_clk_1));
       BUFG i_clk_2_bufg   (.I (mmcm_clk_2_s),   .O (mmcm_clk_2));
 
-  end else if (FPGA_TECHNOLOGY == MMCM_DEVICE_ULTRASCALE_PLUS) begin
+  end else if (FPGA_TECHNOLOGY == ULTRASCALE_PLUS) begin
     MMCME4_ADV #(
       .BANDWIDTH ("OPTIMIZED"),
       .CLKOUT4_CASCADE ("FALSE"),
