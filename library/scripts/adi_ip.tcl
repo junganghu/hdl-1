@@ -338,6 +338,7 @@ proc adi_add_device_spec_param {ip_param} {
   }
 
   set p [ipgui::get_guiparamspec -name $ip_param -component $cc]
+  set_property -dict [list "widget" "comboBox" ] $p
   ipgui::move_param -component $cc -order 0 $p -parent $info_group
 }
 
