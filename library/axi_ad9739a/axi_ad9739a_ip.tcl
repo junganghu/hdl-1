@@ -37,6 +37,7 @@ adi_ip_bd axi_ad9739a "bd/bd.tcl $ad_hdl_dir/library/scripts/common_bd.tcl"
 set_property driver_value 0 [ipx::get_ports *dunf* -of_objects [ipx::current_core]]
 
 adi_auto_fpga_spec_params
+ipx::create_xgui_files [ipx::current_core]
 
 ipx::save_core [ipx::current_core]
 

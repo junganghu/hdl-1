@@ -36,6 +36,7 @@ set_property driver_value 0 [ipx::get_ports *sync_in* -of_objects [ipx::current_
 set_property driver_value 0 [ipx::get_ports *raddr_in* -of_objects [ipx::current_core]]
 
 adi_auto_fpga_spec_params
+ipx::create_xgui_files [ipx::current_core]
 
 ipx::save_core [ipx::current_core]
 

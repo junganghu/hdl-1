@@ -39,5 +39,6 @@ ipx::infer_bus_interface adc_clk_in_p xilinx.com:signal:clock_rtl:1.0 [ipx::curr
 ipx::infer_bus_interface adc_clk_in_n xilinx.com:signal:clock_rtl:1.0 [ipx::current_core]
 
 adi_auto_fpga_spec_params
+ipx::create_xgui_files [ipx::current_core]
 
 ipx::save_core [ipx::current_core]
