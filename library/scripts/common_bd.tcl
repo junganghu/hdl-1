@@ -58,7 +58,7 @@ proc adi_device_spec {cellpath param} {
              ^xc.u.p {set series_name ultrascale+}
              ^xc.u   {set series_name ultrascale }
              default {
-                 puts "Undefined fpga series for \"$part\"!"
+                 puts "Undefined fpga technology for \"$part\"!"
                  exit -1
              }
           }
