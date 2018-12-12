@@ -100,7 +100,7 @@ proc ad_ip_create {pname pdisplay_name {pelabfunction ""} {pcomposefunction ""}}
   set_module_property DESCRIPTION $pdisplay_name
   set_module_property VERSION 1.0
   set_module_property GROUP "Analog Devices"
-  
+
   if {$pelabfunction ne ""} {
     set_module_property ELABORATION_CALLBACK $pelabfunction
   }
@@ -135,9 +135,183 @@ proc ad_ip_parameter {pname ptype pdefault {phdl true} {properties {}}} {
 ###################################################################################################
 ###################################################################################################
 
+proc adi_add_device_spec_parameters {} {
+
+    source ../scripts/adi_intel_device_info_enc.tcl
+
+    add_parameter AUTO_ASSIGN_PART_INFO BOOLEAN 1
+    set_parameter_property AUTO_ASSIGN_PART_INFO DISPLAY_NAME "Automatically populate FPGA Info Parameters"
+    set_parameter_property AUTO_ASSIGN_PART_INFO HDL_PARAMETER false
+    set_parameter_property AUTO_ASSIGN_PART_INFO GROUP {FPGA info}
+
+    ad_ip_parameter DEVICE STRING "" false {
+      SYSTEM_INFO DEVICE
+      VISIBLE false
+    }
+
+    foreach p $auto_set_param_list {
+      adi_add_device_spec $p
+    }
+}
+
+proc adi_add_device_spec {param} {
+
+    global auto_set_param_list
+    global fpga_technology_list
+    global fpga_family_list
+    global speed_grade_list
+    global dev_package_list
+    global xcvr_type_list
+
+    set list_pointer [string tolower $param]
+    set list_pointer [append list_pointer "_list"]
+
+    set enc_list [subst $$list_pointer]
+
+    set group "FPGA info"
+    set ranges ""
+
+    add_parameter $param INTEGER
+    set_parameter_property $param DISPLAY_NAME $param
+    set_parameter_property $param GROUP $group
+    set_parameter_property $param UNITS None
+    set_parameter_property $param HDL_PARAMETER true
+    set_parameter_property $param VISIBLE true
+    set_parameter_property $param DERIVED true
+    set_parameter_property $param DEFAULT_VALUE [lindex $enc_list 0 1]
+
+    add_parameter ${param}_MANUAL INTEGER
+    set_parameter_property ${param}_MANUAL DISPLAY_NAME $param
+    set_parameter_property ${param}_MANUAL GROUP $group
+    set_parameter_property ${param}_MANUAL UNITS None
+    set_parameter_property ${param}_MANUAL HDL_PARAMETER false
+    set_parameter_property ${param}_MANUAL VISIBLE false
+    set_parameter_property ${param}_MANUAL DEFAULT_VALUE [lindex $enc_list 0 1]
+
+    foreach i $enc_list {
+     set value [lindex $i 0]
+     set encode [lindex $i 1]
+     append ranges "\"$encode\:$value\" "
+    }
+    set_parameter_property $param ALLOWED_RANGES $ranges
+    set_parameter_property ${param}_MANUAL ALLOWED_RANGES $ranges
+}
+
+proc info_param_validate {} {
+  source ../scripts/adi_intel_device_info_enc.tcl
+  set auto_populate [get_parameter_value AUTO_ASSIGN_PART_INFO]
+
+  if { $auto_populate == true } {
+
+    set device [get_parameter_value DEVICE]
+
+    set fpga_technology [quartus::device::get_part_info -family $device]
+    set fpga_family     [quartus::device::get_part_info -family_variant $device]
+    set speed_grade     [quartus::device::get_part_info -speed_grade $device]
+    set dev_package     [quartus::device::get_part_info -package $device]
+    set xcvr_type       [quartus::device::get_part_info -hssi_speed_grade $device]
+
+    regsub -all "{" $fpga_technology "" fpga_technology
+    regsub -all "}" $fpga_technology "" fpga_technology
+
+    regsub "{" $fpga_family "" fpga_family
+    regsub "}" $fpga_family "" fpga_family
+
+    regsub "{" $speed_grade "" speed_grade
+    regsub "}" $speed_grade "" speed_grade
+
+    regsub "{" $dev_package "" dev_package
+    regsub "}" $dev_package "" dev_package
+
+    # fpga_technology
+    set matched ""
+    foreach i $fpga_technology_list {
+        if { [regexp ^[lindex $i 0] $fpga_technology] } {
+          set matched [lindex $i 1]
+       }
+    }
+    if { $matched == "" } {
+      send_message WARNING "Unknown FPGA_TECHNOLOGY \"$fpga_technology\" form \"$device\" device"
+      set_parameter_value FPGA_TECHNOLOGY 0xff
+    } else {
+      set_parameter_value FPGA_TECHNOLOGY $matched
+    }
+
+    # fpga_family
+    set matched ""
+    foreach i $fpga_family_list {
+       if { [regexp ^[lindex $i 0] $fpga_family] } {
+          set matched [lindex $i 1]
+       }
+    }
+    if { $matched == "" } {
+      send_message WARNING "Unknown FPGA_FAMILY(family variant) \"$fpga_family\" form \"$device\" device"
+      set_parameter_value FPGA_FAMILY 0xff
+    } else {
+      set_parameter_value FPGA_FAMILY $matched
+    }
+
+    # speed_grade
+    set matched ""
+    foreach i $speed_grade_list {
+       if { [regexp ^[lindex $i 0] $speed_grade] } {
+          set matched [lindex $i 1]
+       }
+    }
+    if { $matched == "" } {
+      send_message WARNING "Unknown SPEED_GRADE \"$speed_grade\" form \"$device\" device"
+      set_parameter_value SPEED_GRADE 0xff
+    } else {
+      set_parameter_value SPEED_GRADE $matched
+    }
+
+    # dev_package
+    set matched ""
+    foreach i $dev_package_list {
+       if { [regexp ^[lindex $i 0] $dev_package] } {
+          set matched [lindex $i 1]
+       }
+    }
+    if { $matched == "" } {
+      send_message WARNING "Unknown DEV_PACKAGE \"dev_package\" form \"$device\" device"
+      set_parameter_value DEV_PACKAGE 0xff
+    } else {
+      set_parameter_value DEV_PACKAGE $matched
+    }
+
+    # xcvr_type
+    set matched ""
+    foreach i $xcvr_type_list {
+       if { [regexp ^[lindex $i 0] $xcvr_type] } {
+          set matched [lindex $i 1]
+       }
+    }
+    set_parameter_value XCVR_TYPE 1 ;#################### fix me
+
+    # if { $matched == "" } {
+      # send_message WARNING "Unknown XCVR_TYPE \"xcvr_type\" form \"$device\" device"
+      # set_parameter_value XCVR_TYPE 0xff
+    # } else {
+      # set_parameter_value XCVR_TYPE $matched
+    # }
+  } else {
+   foreach p $auto_set_param_list {
+     set_parameter_value $p [get_parameter_value ${p}_MANUAL]
+   }
+  }
+
+  foreach p $auto_set_param_list {
+   set_parameter_property ${p}_MANUAL VISIBLE [expr $auto_populate ? false : true]
+   set_parameter_property $p VISIBLE $auto_populate
+  }
+}
+
+###################################################################################################
+###################################################################################################
+
 proc ad_ip_addfile {pname pfile} {
 
-  set pmodule [file tail $pfile]  
+  set pmodule [file tail $pfile]
 
   regsub {\..$} $pmodule {} mname
   if {$pname eq $mname} {
