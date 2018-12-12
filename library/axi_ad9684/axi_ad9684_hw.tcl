@@ -1,5 +1,7 @@
 
 package require qsys
+package require quartus::device
+
 source ../scripts/adi_env.tcl
 source ../scripts/adi_ip_alt.tcl
 
@@ -51,6 +53,8 @@ set_parameter_property OR_STATUS TYPE INTEGER
 set_parameter_property OR_STATUS DESCRIPTION "This parameter enables the OVER RANGE line at the physical interface"
 set_parameter_property OR_STATUS UNITS None
 set_parameter_property OR_STATUS HDL_PARAMETER true
+
+adi_add_auto_fpga_spec_params
 
 # axi4 slave
 

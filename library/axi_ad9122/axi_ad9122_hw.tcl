@@ -1,5 +1,7 @@
 
 package require qsys
+package require quartus::device
+
 source ../scripts/adi_env.tcl
 source ../scripts/adi_ip_alt.tcl
 
@@ -46,6 +48,8 @@ set_parameter_property FPGA_TECHNOLOGY DISPLAY_NAME FPGA_TECHNOLOGY
 set_parameter_property FPGA_TECHNOLOGY TYPE INTEGER
 set_parameter_property FPGA_TECHNOLOGY UNITS None
 set_parameter_property FPGA_TECHNOLOGY HDL_PARAMETER true
+
+adi_add_auto_fpga_spec_params
 
 # axi4 slave
 

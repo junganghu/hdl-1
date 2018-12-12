@@ -57,7 +57,7 @@ adi_add_bus_clock "ctrl_clk" "spi_engine_offload_ctrl"
 adi_add_bus_clock "spi_clk" "spi_engine_ctrl" "spi_resetn"
 adi_add_bus_clock "dma_clk" "dma_fifo_tx"
 
-adi_auto_fpga_spec_params
+adi_add_auto_fpga_spec_params
 ipx::create_xgui_files [ipx::current_core]
 
 ipx::save_core [ipx::current_core]

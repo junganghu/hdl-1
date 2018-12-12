@@ -809,7 +809,7 @@ set_property enablement_dependency \
   [ipx::get_ports cpll_ref_clk_15 -of_objects [ipx::current_core]] \
   [ipx::get_ports up_cpll_rst_15 -of_objects [ipx::current_core]]
 
-adi_auto_fpga_spec_params
+adi_add_auto_fpga_spec_params
 ipx::create_xgui_files [ipx::current_core]
 
 ipx::save_core [ipx::current_core]

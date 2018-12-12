@@ -1,5 +1,7 @@
 
 package require qsys
+package require quartus::device
+
 source ../scripts/adi_env.tcl
 source ../scripts/adi_ip_alt.tcl
 
@@ -67,6 +69,8 @@ ad_ip_parameter DAC_DDS_DISABLE INTEGER 0
 ad_ip_parameter DAC_USERPORTS_DISABLE INTEGER 0
 ad_ip_parameter DAC_IQCORRECTION_DISABLE INTEGER 0
 ad_ip_parameter IO_DELAY_GROUP STRING {dev_if_delay_group}
+
+adi_add_auto_fpga_spec_params
 
 # interfaces
 

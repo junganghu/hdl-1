@@ -1,6 +1,8 @@
 
 
 package require qsys
+package require quartus::device
+
 source ../scripts/adi_env.tcl
 source ../scripts/adi_ip_alt.tcl
 
@@ -66,6 +68,8 @@ set_parameter_property EMBEDDED_SYNC DISPLAY_NAME EMBEDDED_SYNC
 set_parameter_property EMBEDDED_SYNC TYPE INTEGER
 set_parameter_property EMBEDDED_SYNC UNITS None
 set_parameter_property EMBEDDED_SYNC HDL_PARAMETER true
+
+adi_add_auto_fpga_spec_params
 
 # axi4 slave
 

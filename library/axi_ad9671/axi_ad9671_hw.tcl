@@ -1,6 +1,8 @@
 
 
 package require qsys
+package require quartus::device
+
 source ../scripts/adi_env.tcl
 source ../scripts/adi_ip_alt.tcl
 
@@ -49,6 +51,8 @@ set_parameter_property QUAD_OR_DUAL_N DISPLAY_NAME QUAD_OR_DUAL_N
 set_parameter_property QUAD_OR_DUAL_N TYPE INTEGER
 set_parameter_property QUAD_OR_DUAL_N UNITS None
 set_parameter_property QUAD_OR_DUAL_N HDL_PARAMETER true
+
+adi_add_auto_fpga_spec_params
 
 # axi4 slave
 

@@ -62,7 +62,7 @@ ipx::infer_bus_interface adc_rst xilinx.com:signal:reset_rtl:1.0 [ipx::current_c
 ipx::infer_bus_interface dac_clk xilinx.com:signal:clock_rtl:1.0 [ipx::current_core]
 ipx::infer_bus_interface dac_rst xilinx.com:signal:reset_rtl:1.0 [ipx::current_core]
 
-adi_auto_fpga_spec_params
+adi_add_auto_fpga_spec_params
 ipx::create_xgui_files [ipx::current_core]
 
 ipx::save_core [ipx::current_core]

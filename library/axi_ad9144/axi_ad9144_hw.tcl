@@ -60,6 +60,8 @@ set_parameter_property QUAD_OR_DUAL_N TYPE INTEGER
 set_parameter_property QUAD_OR_DUAL_N UNITS None
 set_parameter_property QUAD_OR_DUAL_N HDL_PARAMETER true
 
+adi_add_auto_fpga_spec_params
+
 # axi4 slave
 
 ad_ip_intf_s_axi s_axi_aclk s_axi_aresetn

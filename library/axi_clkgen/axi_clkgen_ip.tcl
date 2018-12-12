@@ -43,7 +43,7 @@ set_property -dict [list \
 	widget {checkBox} \
 ] $param
 
-adi_auto_fpga_spec_params
+adi_add_auto_fpga_spec_params
 ipx::create_xgui_files [ipx::current_core]
 
 set_property enablement_tcl_expr {$ENABLE_CLKIN2} [ipx::get_user_parameters CLKIN2_PERIOD -of_objects $cc]

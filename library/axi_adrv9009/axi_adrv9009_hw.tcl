@@ -1,6 +1,8 @@
 
 
 package require qsys
+package require quartus::device
+
 source ../scripts/adi_env.tcl
 source ../scripts/adi_ip_alt.tcl
 
@@ -68,6 +70,8 @@ set_parameter_property ADC_DATAPATH_DISABLE DISPLAY_NAME ADC_DATAPATH_DISABLE
 set_parameter_property ADC_DATAPATH_DISABLE TYPE INTEGER
 set_parameter_property ADC_DATAPATH_DISABLE UNITS None
 set_parameter_property ADC_DATAPATH_DISABLE HDL_PARAMETER true
+
+adi_add_auto_fpga_spec_params
 
 # axi4 slave
 
