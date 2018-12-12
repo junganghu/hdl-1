@@ -135,7 +135,7 @@ proc ad_ip_parameter {pname ptype pdefault {phdl true} {properties {}}} {
 ###################################################################################################
 ###################################################################################################
 
-proc adi_add_device_spec_parameters {} {
+proc adi_add_auto_fpga_spec_params {} {
 
     source ../scripts/adi_intel_device_info_enc.tcl
 
@@ -150,11 +150,11 @@ proc adi_add_device_spec_parameters {} {
     }
 
     foreach p $auto_set_param_list {
-      adi_add_device_spec $p
+      adi_add_device_spec_param $p
     }
 }
 
-proc adi_add_device_spec {param} {
+proc adi_add_device_spec_param {param} {
 
     global auto_set_param_list
     global fpga_technology_list

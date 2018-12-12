@@ -310,6 +310,18 @@ proc adi_ip_properties {ip_name} {
   ipx::save_core
 }
 
+proc proc adi_add_device_spec_parameters {} {
+
+  global auto_set_param_list
+  set cc [ipx::current_core]
+
+  foreach i $auto_set_param_list {
+    if { [ipx::get_user_parameters $i -of_objects $cc -quiet] ne ""} {
+      adi_add_device_spec_param $i
+    }
+  }
+}
+
 proc adi_add_device_spec_param {ip_param} {
 
   set cc [ipx::current_core]
@@ -340,18 +352,6 @@ proc adi_add_device_spec_param {ip_param} {
   set p [ipgui::get_guiparamspec -name $ip_param -component $cc]
   set_property -dict [list "widget" "comboBox" ] $p
   ipgui::move_param -component $cc -order 0 $p -parent $info_group
-}
-
-proc adi_auto_fpga_spec_params {} {
-
-  global auto_set_param_list
-  set cc [ipx::current_core]
-
-  foreach i $auto_set_param_list {
-    if { [ipx::get_user_parameters $i -of_objects $cc -quiet] ne ""} {
-      adi_add_device_spec_param $i
-    }
-  }
 }
 
 ## ###############################################################################################
